@@ -3,7 +3,7 @@ from flask import Flask
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
-from src.routes import pages
+from routes import pages
 
 load_dotenv()
 
@@ -14,7 +14,9 @@ def create_app():
     app.config["SECRET_KEY"] = os.environ.get(
         "SECRET_KEY", "pf9Wkove4IKEAXvy-cQkeDPhv9Cb3Ag-wyJILbq_dFw"
     )
-    app.db = MongoClient(app.config["MONGODB_URI"]).get_default_database()
+    #app.db = MongoClient(app.config["MONGODB_URI"]).get_default_database()
 
     app.register_blueprint(pages)
     return app
+app = create_app()
+app.run(debug=True, port = 5050)
