@@ -82,7 +82,7 @@ def login():
             user = User(**user_data)
 
             if user and pbkdf2_sha256.verify(form.password.data, user.password):
-                session['uesr_id'] = user._id
+                session['user_id'] = user._id
                 session['email'] = user.email
                 return redirect(url_for('.index'))
     
@@ -109,7 +109,7 @@ def add_movie():
             year=form.year.data
         )
         current_app.db.movies.insert_one(asdict(movie))
-        current_app.db.user.insert_one({"_id":session.get("user_id")},{"$push":{"movies":movie._id}})
+        current_app.db.user.update_one({"_id":session.get("user_id")},{"$push":{"movies":movie._id}})
 
         return redirect(url_for('.index'))
 
