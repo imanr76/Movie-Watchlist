@@ -10,3 +10,16 @@
 </div>
 
 {% endmacro %}
+
+{% macro render_area_field(field) %}
+
+<div class="form__group">
+    {{ field.label(class = 'form__label') }}
+    {{ field(rows=4, class = 'form__field', style = "resize:none") }} 
+    
+    {% for error in field.errors %}
+    <span class="form__error">{{ error }}</span>
+    {% endfor %}
+</div>
+
+{% endmacro %}
